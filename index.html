@@ -1,0 +1,519 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CodeStorm Docs</title>
+<meta name="description" content="Guía de bienvenida para los programadores de CodeStorm: el simulador BEE a fondo, el juego BIOBUZZ y las reglas de la temporada que más importan al escribir código.">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Work+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<style>
+:root{
+  color-scheme: light dark;
+  --bg:#f2f4fa;
+  --bg-elev:#ffffff;
+  --bg-sidebar:#e9edf8;
+  --text:#1b2030;
+  --text-dim:#5b6479;
+  --border:#dbe0ee;
+  --accent:#3454d1;
+  --accent-soft:#e2e8fb;
+  --spark:#9c6f00;
+  --spark-soft:#f7ecd2;
+  --al-red:#b23a3a;
+  --al-red-soft:#f4e0db;
+  --al-blue:#2f5c9c;
+  --al-blue-soft:#dfe7f4;
+  --good:#2f7d53;
+  --good-soft:#dcecd9;
+  --mono-bg:#e7eaf5;
+  --shadow:0 1px 2px rgba(20,25,50,.05), 0 8px 24px -10px rgba(20,25,50,.14);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1119; --bg-elev:#161926; --bg-sidebar:#13151f; --text:#e7e9f2; --text-dim:#9099b3; --border:#262a3b;
+    --accent:#7b93ff; --accent-soft:#1c2142; --spark:#f0c354; --spark-soft:#332710;
+    --al-red:#e2756c; --al-red-soft:#3a2420; --al-blue:#7facec; --al-blue-soft:#1f2b3c;
+    --good:#6fc28e; --good-soft:#1c3324; --mono-bg:#1d2131;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -10px rgba(0,0,0,.55);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1119; --bg-elev:#161926; --bg-sidebar:#13151f; --text:#e7e9f2; --text-dim:#9099b3; --border:#262a3b;
+  --accent:#7b93ff; --accent-soft:#1c2142; --spark:#f0c354; --spark-soft:#332710;
+  --al-red:#e2756c; --al-red-soft:#3a2420; --al-blue:#7facec; --al-blue-soft:#1f2b3c;
+  --good:#6fc28e; --good-soft:#1c3324; --mono-bg:#1d2131;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -10px rgba(0,0,0,.55);
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--text);font-family:'Work Sans',system-ui,sans-serif;font-size:16px;line-height:1.7}
+img{max-width:100%}
+h1,h2,h3{font-family:'Rajdhani',system-ui,sans-serif;text-wrap:balance;letter-spacing:.01em;font-weight:700}
+code,.mono,.key{font-family:'IBM Plex Mono',ui-monospace,monospace}
+strong{color:var(--text)}
+a{color:var(--accent)}
+
+/* topbar */
+.topbar{
+  position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:12px clamp(20px,5vw,48px);
+}
+.brandmark{display:flex;align-items:center;gap:10px}
+.brandmark img{height:30px;width:auto;display:block}
+.brandmark img:not([src]),.brandmark img[src=""]{display:none}
+.topbar .word{font-family:'Rajdhani';font-weight:700;font-size:1.05rem;letter-spacing:.07em;text-transform:uppercase}
+.topbar nav{display:flex;gap:18px;font-size:.84rem}
+.topbar nav a{color:var(--text-dim);text-decoration:none;font-weight:600}
+.topbar nav a:hover{color:var(--accent)}
+@media (max-width:720px){.topbar nav{display:none}}
+
+/* shell: sidebar + main */
+.shell{display:grid;grid-template-columns:260px minmax(0,1fr);max-width:1180px;margin:0 auto}
+@media (max-width:900px){.shell{grid-template-columns:1fr}}
+nav.toc{
+  background:var(--bg-sidebar);border-right:1px solid var(--border);padding:26px 16px 60px;
+  position:sticky;top:57px;align-self:start;height:calc(100vh - 57px);overflow-y:auto;
+}
+@media (max-width:900px){nav.toc{position:static;height:auto;border-right:none;border-bottom:1px solid var(--border)}}
+.toc-group{margin-bottom:22px}
+.toc-group h4{font-size:.68rem;text-transform:uppercase;letter-spacing:.09em;color:var(--text-dim);margin:0 6px 8px;font-weight:600}
+.toc-group ul{list-style:none;margin:0;padding:0}
+.toc-group li a{display:block;padding:6px 10px;border-radius:7px;color:var(--text);text-decoration:none;font-size:.87rem;border-left:2px solid transparent}
+.toc-group li a:hover{background:var(--accent-soft)}
+.toc-group li a.active{background:var(--accent-soft);border-left-color:var(--accent);color:var(--accent);font-weight:600}
+
+main{padding:0 clamp(20px,4vw,56px) 120px;min-width:0}
+
+.cover{padding:56px 0 30px;max-width:68ch}
+.cover .logo-row{display:flex;align-items:center;gap:16px;margin-bottom:6px}
+.cover .logo-row img{height:52px;width:auto}
+.cover .word-big{font-family:'Rajdhani';font-weight:700;font-size:clamp(2.1rem,6vw,3rem);letter-spacing:.04em;text-transform:uppercase;margin:0;line-height:1}
+.cover .role{color:var(--accent);font-weight:600;font-size:1.02rem;margin-top:10px}
+.cover .lede{color:var(--text-dim);margin-top:16px;font-size:1.03rem}
+.cover .tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.tag{font-family:'IBM Plex Mono';font-size:.72rem;padding:4px 10px;border-radius:5px;background:var(--mono-bg);color:var(--text-dim);border:1px solid var(--border)}
+
+.welcome{background:var(--bg-elev);border:1px solid var(--border);border-radius:12px;padding:20px 22px;box-shadow:var(--shadow);margin:8px 0 10px;max-width:68ch}
+.welcome p{margin:0 0 10px}
+.welcome p:last-child{margin-bottom:0}
+.welcome .sign{color:var(--text-dim);font-size:.9rem;font-style:italic}
+
+.part-divider{display:flex;align-items:flex-end;gap:18px;margin:62px 0 26px;padding-top:28px;border-top:1px solid var(--border);max-width:68ch}
+.part-divider:first-of-type{margin-top:40px}
+.part-num{font-family:'Rajdhani';font-weight:700;font-size:4rem;line-height:.8;flex:none;color:transparent;-webkit-text-stroke:1.5px var(--accent)}
+.part-titles .eyebrow{font-family:'IBM Plex Mono';font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 4px}
+.part-titles h2{font-size:clamp(1.4rem,3.6vw,1.8rem);margin:0}
+.part-intro{max-width:68ch;color:var(--text-dim)}
+
+main section.sub{max-width:68ch;padding-top:6px}
+.chapnum{display:inline-block;font-family:'IBM Plex Mono';font-size:.74rem;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:2px 7px;margin-right:8px;vertical-align:middle}
+h3{font-size:1.1rem;margin:30px 0 8px;display:flex;align-items:center;gap:0}
+p{margin:0 0 14px;max-width:68ch}
+ul,ol{padding-left:1.3em;margin:0 0 16px;max-width:68ch}
+li{margin-bottom:6px}
+.lede{color:var(--text-dim)}
+
+table{width:100%;border-collapse:collapse;margin:14px 0 24px;font-size:.91rem;background:var(--bg-elev);
+  box-shadow:var(--shadow);border-radius:10px;overflow:hidden}
+table.wide{display:block;overflow-x:auto;white-space:nowrap}
+th,td{text-align:left;padding:9px 13px;border-bottom:1px solid var(--border);vertical-align:top}
+th{background:var(--accent-soft);font-family:'Rajdhani';font-weight:700;font-size:.76rem;text-transform:uppercase;letter-spacing:.04em;color:var(--accent)}
+tr:last-child td{border-bottom:none}
+td .mono,td code{font-size:.84rem;background:var(--mono-bg);padding:1px 6px;border-radius:4px}
+td.num,th.num{font-variant-numeric:tabular-nums;text-align:right}
+
+.key{display:inline-block;background:var(--mono-bg);border:1px solid var(--border);border-bottom-width:2px;border-radius:5px;padding:1px 7px;font-size:.8rem;font-weight:600;color:var(--text)}
+.chiprow{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 18px}
+.chip{font-family:'IBM Plex Mono';font-size:.76rem;background:var(--bg-elev);border:1px solid var(--border);border-radius:20px;padding:4px 12px;color:var(--text-dim)}
+
+.callout{border-radius:10px;padding:14px 16px;margin:16px 0;border:1px solid var(--border);box-shadow:var(--shadow);font-size:.94rem;max-width:68ch}
+.callout.crucial{background:var(--spark-soft);border-color:var(--spark)}
+.callout.crucial .lbl{color:var(--spark)}
+.callout.code{background:var(--accent-soft);border-color:var(--accent)}
+.callout.code .lbl{color:var(--accent)}
+.callout.good{background:var(--good-soft);border-color:var(--good)}
+.callout.good .lbl{color:var(--good)}
+.callout .lbl{display:block;font-family:'Rajdhani';font-weight:700;font-size:.76rem;text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.callout p:last-child{margin-bottom:0}
+
+.al-red{color:var(--al-red);font-weight:600}
+.al-blue{color:var(--al-blue);font-weight:600}
+
+footer{border-top:1px solid var(--border);padding:34px 0 50px;color:var(--text-dim);font-size:.85rem;max-width:68ch}
+
+@media (prefers-reduced-motion:no-preference){
+  .part-divider{animation:rise .5s ease both}
+  @keyframes rise{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brandmark"><img src="logo.png" alt="" onerror="this.style.display='none'"><span class="word">CodeStorm</span></div>
+  <nav>
+    <a href="#parte1">Parte 1 · Simulador</a>
+    <a href="#parte2">Parte 2 · BIOBUZZ</a>
+    <a href="#parte3">Parte 3 · Reglas</a>
+  </nav>
+</div>
+
+<div class="shell">
+  <nav class="toc" id="toc">
+    <div class="toc-group">
+      <h4>Parte 1 — Simulador</h4>
+      <ul>
+        <li><a href="#inicio">Primeros pasos</a></li>
+        <li><a href="#interfaz">La interfaz</a></li>
+        <li><a href="#tutorial">Tutorial guiado</a></li>
+        <li><a href="#ajustes">Ajustes</a></li>
+        <li><a href="#mando">Mando y teclado</a></li>
+        <li><a href="#garaje">Garaje del robot</a></li>
+        <li><a href="#beta-setup">Configuración asistida</a></li>
+        <li><a href="#calibracion">Calibrar con el real</a></li>
+        <li><a href="#auto-builder">Auto Builder</a></li>
+        <li><a href="#java">Programar en Java</a></li>
+        <li><a href="#bots">Bots</a></li>
+        <li><a href="#online">Modo online</a></li>
+        <li><a href="#retos">Retos</a></li>
+        <li><a href="#clasificacion">Clasificación</a></li>
+        <li><a href="#actualizaciones">Actualizaciones</a></li>
+      </ul>
+    </div>
+    <div class="toc-group">
+      <h4>Parte 2 — BIOBUZZ</h4>
+      <ul><li><a href="#parte2">El juego</a></li></ul>
+    </div>
+    <div class="toc-group">
+      <h4>Parte 3 — Reglas</h4>
+      <ul>
+        <li><a href="#puntuacion">Puntuación</a></li>
+        <li><a href="#faltas">Faltas</a></li>
+        <li><a href="#fases">Fases y tiempos</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <div class="cover">
+      <div class="logo-row"><img src="logo.png" alt="" onerror="this.style.display='none'"></div>
+      <h1 class="word-big">CodeStorm Docs</h1>
+      <p class="role">Guía de bienvenida — equipo de programación</p>
+      <p class="lede">Lo que necesitas saber antes de escribir tu primera línea de código para esta temporada: la herramienta con la que vas a practicar a fondo, el juego para el que estás programando, y las reglas que de verdad cambian cómo escribes tu autónomo y tu TeleOp.</p>
+      <div class="tags">
+        <span class="tag">BIOBUZZ 2026-27</span>
+        <span class="tag">Simulador BEE</span>
+        <span class="tag">FIRST Tech Challenge</span>
+      </div>
+    </div>
+
+    <div class="welcome">
+      <p>Si acabas de entrar al equipo: no asumimos que ya sepas BIOBUZZ de memoria, pero sí que ya programaste algo de robótica antes. Esta guía no explica qué es un motor o qué es un OpMode — va directo a lo específico de esta temporada y de cómo trabajamos en CodeStorm.</p>
+      <p class="sign">Léela en orden la primera vez; después, úsala como referencia — la Parte 1 cuando tengas dudas de una pantalla de BEE, la Parte 3 cuando tengas dudas de puntuación o faltas.</p>
+    </div>
+
+    <!-- ========== PARTE 1 ========== -->
+    <section id="parte1">
+      <div class="part-divider">
+        <span class="part-num">01</span>
+        <div class="part-titles"><p class="eyebrow">Parte 1</p><h2>El simulador</h2></div>
+      </div>
+      <p class="part-intro">BEE es donde vas a pasar la mayoría de tus horas antes de que el robot real exista o esté libre. No es una recreación aproximada: tu OpMode Java real se compila tal cual y corre contra una capa que imita <code>hardwareMap</code>, motores, servos, IMU, sensores y visión. Si compila y corre ahí, en la inmensa mayoría de los casos corre igual en el Control Hub. Esta parte cubre cada pantalla a fondo — es larga a propósito, para que no tengas que adivinar nada.</p>
+
+      <section class="sub" id="inicio">
+        <h3><span class="chapnum">1.1</span>Primeros pasos</h3>
+        <p>No hay nada que instalar: el JDK viene embebido. La carpeta del simulador trae cuatro cosas que deben quedarse juntas: el ejecutable, <span class="mono">java/</span> (tu proyecto TeamCode y el SDK simulado), <span class="mono">runtime/</span> (el JDK de Eclipse Temurin, para que compile sin que tengas uno instalado) y la librería WebRTC del modo online. Al abrir el programa, carga la escena en un hilo aparte con una pantalla de progreso: archivos, construcción de la vista 3D, calentamiento de miniaturas de robot de la clasificación, y una comprobación de ritmo de fotogramas antes de activar el menú.</p>
+        <table>
+          <tr><th>Qué</th><th>Dónde</th></tr>
+          <tr><td>Robots, autos guardados, ajustes</td><td class="mono">%APPDATA%\Godot\app_userdata\ftc_project</td></tr>
+          <tr><td>Tu proyecto TeamCode</td><td class="mono">java\teamcode\org\firstinspires\ftc\teamcode\</td></tr>
+          <tr><td>Ajustes de juego</td><td class="mono">user://settings.json</td></tr>
+          <tr><td>Mapeo de mando</td><td class="mono">user://controls.json</td></tr>
+        </table>
+        <div class="callout code"><span class="lbl">Si todavía no enlazaste tu proyecto</span><p>Hay cuatro OpModes de ejemplo listos para probar la interfaz sin escribir nada: <code>EncoderTest</code>, <code>MecanumTeleOp</code>, <code>QuickAuto</code> y <code>TurnToHeading</code>, visibles como "Built-in examples" en Garaje → Código.</p></div>
+      </section>
+
+      <section class="sub" id="interfaz">
+        <h3><span class="chapnum">1.2</span>La interfaz</h3>
+        <p>La pantalla de inicio tiene cinco pestañas arriba a la derecha: <strong>JUGAR</strong>, <strong>ROBOT</strong>, <strong>CLASIFICACIÓN</strong>, <strong>AJUSTES</strong> y <strong>TUTORIAL</strong>. Las dos primeras despliegan tarjetas a la izquierda:</p>
+        <table>
+          <tr><th>Pestaña</th><th>Tarjetas</th></tr>
+          <tr><td>JUGAR</td><td>Partido completo (2:30) · En línea · Autónomo (0:30) · Control del piloto (2:00) · Juego libre · Desafíos</td></tr>
+          <tr><td>ROBOT</td><td>Constructor de autónomo · Garaje del robot · Bots · Laboratorio beta</td></tr>
+        </table>
+        <p>Durante una partida, <span class="key">Tab</span> abre el <strong>panel lateral</strong>: los mismos modos de juego, el registro de eventos en vivo, y accesos a Ajustes/Tutorial. <span class="key">Esc</span> pausa o vuelve atrás según el contexto, y <span class="key">R</span> reinicia el campo fuera de partida.</p>
+        <p>El HUD permanente muestra el marcador (<span class="al-red">ALIANZA ROJA</span> / <span class="al-blue">ALIANZA AZUL</span>), el reloj, la fase actual, y tres chips de estado — <strong>RECOGIDA</strong>, <strong>VOLANTE</strong> y <strong>PUNTERÍA</strong> — más una barra de atajos con las teclas activas según tus mecanismos.</p>
+        <p>Al terminar un partido completo, la pantalla de resultados desglosa los puntos por categoría, cuenta los HIVE TIPS de cada alianza, lista las faltas en una sección "Árbitro", y si el partido califica, te muestra ahí mismo tu progreso en la Clasificación.</p>
+      </section>
+
+      <section class="sub" id="tutorial">
+        <h3><span class="chapnum">1.3</span>Tutorial guiado</h3>
+        <p>El tutorial integrado (pestaña TUTORIAL) resalta con un marco amarillo pulsante el elemento real de la interfaz mientras explica — es la fuente más fiable sobre cómo se comporta cada sistema. Seis capítulos, en cualquier orden:</p>
+        <table>
+          <tr><th>#</th><th>Capítulo</th><th class="num">Dura</th><th>Qué cubre</th></tr>
+          <tr><td>1</td><td>Juega la partida</td><td class="num">5 min</td><td>Reglas básicas, cámaras, conducción mecanum, piezas y puntuación</td></tr>
+          <tr><td>2</td><td>Bots y modos</td><td class="num">4 min</td><td>Oponentes, compañero, niveles de dificultad</td></tr>
+          <tr><td>3</td><td>Crea un autónomo</td><td class="num">6 min</td><td>Auto Builder completo: ruta, bloques, código</td></tr>
+          <tr><td>4</td><td>Construye tu robot</td><td class="num">6 min</td><td>Garaje por módulos, turreta/flywheel, sensores</td></tr>
+          <tr><td>5</td><td>Iguala tu robot real</td><td class="num">7 min</td><td>Medir y calibrar los valores físicos</td></tr>
+          <tr><td>6</td><td>Clasificación</td><td class="num">2 min</td><td>Las cuatro tablas y cómo calificar</td></tr>
+        </table>
+        <p class="lede">Si ya conoces FTC, el capítulo 1 es el único realmente imprescindible: fija el vocabulario de esta temporada que luego se usa sin explicación en toda la app.</p>
+      </section>
+
+      <section class="sub" id="ajustes">
+        <h3><span class="chapnum">1.4</span>Ajustes</h3>
+        <p>Ocho páginas con un buscador que indexa el texto de todas, y un botón "Defaults" que restaura todo.</p>
+        <h4 style="font-family:'Rajdhani';margin:18px 0 6px;font-size:.98rem">Conducción</h4>
+        <table>
+          <tr><th>Opción</th><th>Rango</th><th class="num">Por defecto</th></tr>
+          <tr><td>Velocidad de giro</td><td class="mono">0.2 – 1.5</td><td class="num">1.0</td></tr>
+          <tr><td>Velocidad de avance</td><td class="mono">0.2 – 1.0</td><td class="num">1.0</td></tr>
+          <tr><td>Precisión (modo lento)</td><td class="mono">0.15 – 0.8</td><td class="num">0.4</td></tr>
+        </table>
+        <p class="lede">Solo afectan cuando conduces tú manualmente — nunca a tu código Java ni a los bots.</p>
+        <h4 style="font-family:'Rajdhani';margin:18px 0 6px;font-size:.98rem">Mecanismos</h4>
+        <p>Tres interruptores "con tecla" o "siempre activo": <strong>recogida</strong> (con tecla por defecto), <strong>flywheel</strong> (con tecla por defecto) y <strong>turreta</strong> (automática por defecto — siempre apunta; con tecla, se fija mirando al frente). Dos turretas o lanzadores disparan a la vez, una pieza cada una.</p>
+        <h4 style="font-family:'Rajdhani';margin:18px 0 6px;font-size:.98rem">Teclas</h4>
+        <div class="chiprow">
+          <span class="chip"><span class="key">P</span> disparar</span>
+          <span class="chip"><span class="key">G</span> recogida on/off</span>
+          <span class="chip"><span class="key">F</span> flywheel on/off</span>
+          <span class="chip"><span class="key">H</span> auto-apuntado on/off</span>
+          <span class="chip"><span class="key">O</span> correr mi auto</span>
+          <span class="chip"><span class="key">V</span> cambiar cámara</span>
+        </div>
+        <p>Todas reasignables. Fijas: <span class="key">W</span><span class="key">A</span><span class="key">S</span><span class="key">D</span>, flechas, <span class="key">Tab</span>, <span class="key">Esc</span>, <span class="key">R</span>.</p>
+        <h4 style="font-family:'Rajdhani';margin:18px 0 6px;font-size:.98rem">Árbitro</h4>
+        <p>Cada regla se puede desactivar aquí — ver la tabla completa en la <a href="#faltas">Parte 3</a>. Por defecto todas están activas excepto <code>G417</code> (embestir la HIVE).</p>
+        <h4 style="font-family:'Rajdhani';margin:18px 0 6px;font-size:.98rem">Cámara</h4>
+        <p>Cuatro modos ciclables con <span class="key">V</span>: <strong>Piloto</strong>, <strong>Transmisión</strong>, <strong>Seguir</strong>, <strong>Superior</strong>. En modo piloto: la cámara sigue al robot (0–1), izquierda/derecha (24–120 in), altura (30–96 in), distancia a la pared (2–240 in), inclinación (−80° a 20°), giro (−80° a 80°).</p>
+        <h4 style="font-family:'Rajdhani';margin:18px 0 6px;font-size:.98rem">Gráficos y sonido</h4>
+        <p>Calidad Baja/Media/Alta/Ultra/Realista. Casillas: mostrar FPS (activado), V-Sync (activado), resolución dinámica (desactivada). Límite de FPS: sin límite/60/120/30. Música y efectos con deslizadores independientes de 0 a 100%.</p>
+      </section>
+
+      <section class="sub" id="mando">
+        <h3><span class="chapnum">1.5</span>Mando y teclado</h3>
+        <p>Mando PS/Xbox por USB o Bluetooth: palanca izquierda conduce, derecha gira, <span class="key">RB</span> dispara, <span class="key">A</span> recogida, <span class="key">X</span> flywheel, <span class="key">B</span> apuntado, <span class="key">LB</span> modo lento.</p>
+        <p>La configuración de mando tiene <strong>dos pestañas independientes</strong> — es la parte menos obvia del sistema de control:</p>
+        <ul>
+          <li><strong>Conducción</strong>: remapea las 12 acciones de alto nivel (ejes de avance/lateral/giro, disparo, recogida, flywheel, auto-apuntado, precisión, cámara, reiniciar campo, pausa, panel lateral). Decide cómo conduces tú en BEE.</li>
+          <li><strong>Java gamepad1</strong>: remapea los índices crudos que lee tu <strong>OpMode real</strong> vía <code>gamepad1.a</code>, <code>gamepad1.left_stick_x</code>, etc. Prueba que tu código reacciona bien a un layout distinto del que usas para conducir en el simulador.</li>
+        </ul>
+        <p>Zona muerta por defecto: <span class="mono">0.08</span>. Sin mando, el teclado emula <code>gamepad1</code>: <span class="key">W</span><span class="key">S</span><span class="key">←</span><span class="key">→</span> palanca izquierda, <span class="key">A</span><span class="key">D</span> palanca derecha, <span class="key">J</span><span class="key">K</span><span class="key">U</span><span class="key">I</span> = a/b/x/y, <span class="key">Q</span><span class="key">E</span> bumpers, <span class="key">Z</span><span class="key">X</span> gatillos.</p>
+      </section>
+
+      <section class="sub" id="garaje">
+        <h3><span class="chapnum">1.6</span>Garaje del robot</h3>
+        <p>El camino normal para montar un robot (ROBOT → Garaje). Seis pestañas: Start, Chasis, Hardware, CAD, Código, y la vista 3D a la derecha (arrastrar rota, Shift+arrastrar desplaza, rueda hace zoom).</p>
+        <h4 style="font-family:'Rajdhani';margin:18px 0 6px;font-size:.98rem">Chasis</h4>
+        <table class="wide">
+          <tr><th>Perfil</th><th>Tamaño</th><th class="num">Masa</th><th class="num">RPM</th></tr>
+          <tr><td>Mecanum estándar</td><td class="mono">18×18 in</td><td class="num">13.5 kg</td><td class="num">312</td></tr>
+          <tr><td>Rápido y ligero</td><td class="mono">18×18 in</td><td class="num">11 kg</td><td class="num">435</td></tr>
+          <tr><td>Empujador pesado</td><td class="mono">18×18 in</td><td class="num">17 kg</td><td class="num">223</td></tr>
+          <tr><td>Compacto 15 in</td><td class="mono">15×15 in</td><td class="num">9 kg</td><td class="num">312</td></tr>
+        </table>
+        <p>Campos manuales: fuerza máxima de rueda (10–1000), ganancia del controlador (0.5–20), escala de giro por teclado (0.1–1.5), eficiencia lateral (0.3–1.0), fricción de rodadura (0–5), fricción de giro (0–10), ticks de encoder por vuelta (28–3000).</p>
+        <h4 style="font-family:'Rajdhani';margin:18px 0 6px;font-size:.98rem">Hardware y módulos</h4>
+        <p>El robot se construye como módulos sobre la caja inicial de <strong>18×18×18 in</strong> (desplegable hasta 18×24×29 in, regla R102): recogida, turreta/lanzador, cámara y sensores. El gizmo 3D: flechas verdes deslizan adelante/atrás, rojas izquierda/derecha, el cono azul sube/baja, la esfera blanca mueve libre, cubitos rojos cambian el tamaño.</p>
+        <p>En la turreta eliges límite ±grados con zona ciega, o lanzador fijo; el giro lo mueve un servo o un motor con PIDF — relación de engranajes, masa y fricción afectan velocidad y precisión, con gráfica en vivo. El flywheel añade motor, relación de engranajes, tamaño de rueda y modo de control (PIDF/SDK/bang-bang). El panel "Comprobación de reglas" avisa si algo no cumple (recogida que no llega al suelo, robot que no cabe en el cubo inicial, falta de lanzador).</p>
+        <h4 style="font-family:'Rajdhani';margin:18px 0 6px;font-size:.98rem">CAD y código</h4>
+        <p>"CAD Studio" importa STEP, STL, GLB/GLTF, FBX, OBJ o 3MF (STEP necesita las herramientas Python del proyecto fuente completo, no incluidas en la descarga compilada). La pestaña Código apunta tu carpeta de TeamCode, compila, y elige qué OpMode usar como Autónomo y cuál como TeleOp.</p>
+        <div class="callout code"><span class="lbl">Nombres de hardware</span><p>Tienen que ser idénticos a los que usa <code>hardwareMap.get(...)</code> en tu código y a los que configuras en la Driver Station real. Es la causa número uno de "mi robot no se mueve" en el simulador.</p></div>
+      </section>
+
+      <section class="sub" id="beta-setup">
+        <h3><span class="chapnum">1.7</span>Configuración asistida (Laboratorio beta)</h3>
+        <p>Alternativa al Garaje por módulos para ir más rápido con un robot real ya existente. Tres niveles:</p>
+        <ul>
+          <li><strong>Básico</strong> (el único fuera de beta) — asistente de 3 pasos: Conducción (motores, IMU, tipo de odometría), Mecanismos (recogida, lanzador, sensores, otros mecanismos), Calibración (potencias máximas, posiciones de servo).</li>
+          <li><strong>Intermedio</strong> — importa el <strong>.xml</strong> de configuración que exporta el Control Hub real. Solo chasis mecanum.</li>
+          <li><strong>Avanzado</strong> ★ — importa tu TeamCode real (ZIP o carpeta); escanea el Java y asigna cada rol con una etiqueta de confianza que puedes corregir a mano.</li>
+        </ul>
+        <p>Los tres terminan en una lista de comprobación final (✔ listo / ! revisa / ✖ a arreglar) antes de guardar en el Garaje.</p>
+      </section>
+
+      <section class="sub" id="calibracion">
+        <h3><span class="chapnum">1.8</span>Calibrar con tu robot real</h3>
+        <p>Cada valor del Garaje tiene un icono <span class="mono">(i)</span> que explica cómo medirlo con herramientas caseras.</p>
+        <table class="wide">
+          <tr><th>Qué mides</th><th>Cómo</th><th>Fórmula</th></tr>
+          <tr><td>Velocidad lineal</td><td>Filma un sprint de 72 in (3 losetas), cronometra</td><td class="mono">velocidad = 72 / tiempo</td></tr>
+          <tr><td>Giro</td><td>5 vueltas de 360° a máxima potencia</td><td class="mono">velocidad = 1800 / tiempo</td></tr>
+          <tr><td>Ticks por pulgada</td><td>Empuja una vuelta de rueda exacta y lee el encoder</td><td class="mono">TICKS_POR_REV / (π × DIÁMETRO)</td></tr>
+          <tr><td>Batería</td><td><code>hardwareMap.voltageSensor</code></td><td>13.5–14 V llena · 12.5 V cansada</td></tr>
+        </table>
+        <p>goBILDA 312 rpm ≈ <span class="mono">537.7</span> ticks/vuelta. PIDF de arranque del SDK: <span class="mono">F = 32767/ticks_máx; P = 0.1×F; I = 0.1×P; D = 0</span>.</p>
+        <div class="callout good"><span class="lbl">Atajo</span><p>"Leer los PIDs de mi código" escanea tu Java buscando <code>setVelocityPIDFCoefficients</code> y constantes kP/kV/kS, con un botón "Aplicar" por cada una.</p></div>
+      </section>
+
+      <section class="sub" id="auto-builder">
+        <h3><span class="chapnum">1.9</span>Auto Builder</h3>
+        <p>Constructor visual de autónomos. Clic añade puntos de ruta, arrastrar mueve, clic derecho borra, clic sobre un tramo inserta un punto. El rumbo se ajusta con la rueda del ratón sobre el campo (Shift = ajuste fino). Cada punto admite recogida on/off y disparo, concurrente o esperando a terminar. <strong>VISTA PREVIA</strong> simula rápido la geometría; <strong>PROBAR EN EL SIMULADOR</strong> corre la física real. La pestaña <strong>BLOQUES</strong> añade lógica estilo Scratch.</p>
+        <table class="wide">
+          <tr><th>Movimiento</th><th>Requiere</th></tr>
+          <tr><td><strong>Pedro Pathing</strong></td><td>Pinpoint o 2/3 ruedas locas</td></tr>
+          <tr><td><strong>Road Runner</strong></td><td>cualquier encoder</td></tr>
+          <tr><td><strong>Por tiempo</strong></td><td>ninguno — líneas rectas simples</td></tr>
+        </table>
+        <table class="wide">
+          <tr><th>Código</th><th>Qué hace</th></tr>
+          <tr><td><strong>TU CÓDIGO</strong> ★</td><td>Lee tu TeamCode real, usa tu clase Robot y tus constantes</td></tr>
+          <tr><td><strong>SIMPLE</strong></td><td>Un OpMode autocontenido con constantes propias de BEE</td></tr>
+          <tr><td><strong>PRO · Defined</strong></td><td>Para equipos con la librería open-source Defined; pasos en paralelo reales</td></tr>
+        </table>
+        <div class="callout crucial"><span class="lbl">El "AI prompt" no llama a ninguna IA</span><p>Escanea tu TeamCode y la ruta dibujada, y genera un Markdown detallado que guarda y copia al portapapeles — lo pegas tú en Claude o ChatGPT para que te escriba el <code>.java</code> usando tu propio código.</p></div>
+      </section>
+
+      <section class="sub" id="java">
+        <h3><span class="chapnum">1.10</span>Programar en Java</h3>
+        <p>BEE compila tu TeamCode contra una capa (<span class="mono">org.ftcsim.*</span>) que implementa <code>SimHub</code>, <code>SimMotor</code>, <code>SimServo</code>, <code>SimImu</code>, <code>SimSensors</code>, <code>SimTelemetry</code> y el equivalente de VisionPortal/Limelight/AprilTag, más stubs de <span class="mono">android.*</span>, <span class="mono">com.qualcomm.*</span> y OpenCV. El lanzador real es <span class="mono">java/RunOpMode.java</span>:</p>
+        <table>
+          <tr><td class="mono">java RunOpMode.java &lt;NombreDelOpMode&gt; [puerto] [--teamcode dir]</td></tr>
+          <tr><td class="mono">java RunOpMode.java --compile-only</td></tr>
+        </table>
+        <p>Compila con <span class="mono">javac --release 8</span> y conecta por TCP local (puerto <span class="mono">7777</span> por defecto). Si un archivo usa una librería no incluida, se excluye de la compilación y queda listado — el resto sigue corriendo. Ya vienen empaquetadas Pedro Pathing, Pedro-tuning, Road Runner y Defined, que alimentan las opciones de exportación del Auto Builder.</p>
+      </section>
+
+      <section class="sub" id="bots">
+        <h3><span class="chapnum">1.11</span>Bots</h3>
+        <table>
+          <tr><th>Nivel</th><th>En AUTO</th></tr>
+          <tr><td>Fácil</td><td>preload + salir</td></tr>
+          <tr><td>Medio</td><td>preload + 1 ciclo</td></tr>
+          <tr><td>Difícil</td><td>preload + 2 ciclos + aparcar</td></tr>
+          <tr><td>Experto</td><td>preload + 3 ciclos + aparcar</td></tr>
+        </table>
+        <p>Hasta 2 oponentes y 1 compañero, cada uno con estrategia Puntuar/Equilibrado/Defensa. "Smart Auto" deja que tu propio robot corra el cerebro del bot Experto con tu física real — útil para medir qué tan competitivo es tu chasis sin programar nada.</p>
+      </section>
+
+      <section class="sub" id="online">
+        <h3><span class="chapnum">1.12</span>Modo online</h3>
+        <p>"Crear una sala privada" genera un código de 5 letras para compartir; "Partida rápida" te empareja con quien esté conectado (huecos vacíos se llenan con bots). Conexión WebRTC de igual a igual. Las partidas online nunca cuentan para la Clasificación.</p>
+      </section>
+
+      <section class="sub" id="retos">
+        <h3><span class="chapnum">1.13</span>Retos</h3>
+        <table class="wide">
+          <tr><th>Reto</th><th>Objetivo</th><th>Modo</th></tr>
+          <tr><td>Puntería</td><td>3 piezas desde al menos 72 in, en 90 s</td><td>Juego libre</td></tr>
+          <tr><td>Contrarreloj</td><td>6 piezas lo más rápido posible, en 180 s</td><td>Juego libre</td></tr>
+          <tr><td>Autónomo certero</td><td>Tu auto anota 4 piezas en 30 s</td><td>Autónomo</td></tr>
+          <tr><td>Partido limpio</td><td>100+ puntos y cero faltas</td><td>Partido completo</td></tr>
+        </table>
+      </section>
+
+      <section class="sub" id="clasificacion">
+        <h3><span class="chapnum">1.14</span>Clasificación</h3>
+        <p>Cuatro tablas — Solo, Con tu compañero, Partido completo·Medio y Partido completo·Experto. Para calificar: partido completo (no online), reglas de árbitro en valores por defecto, oponentes sin personalizar, velocidad 1.0×, y el robot dentro de límites físicos (≤18 in por lado, ≥6 kg, ≤90 in/s, ≤14 V). Cada mejor marca guarda una repetición fantasma a 10 Hz que puedes reproducir después.</p>
+      </section>
+
+      <section class="sub" id="actualizaciones">
+        <h3><span class="chapnum">1.15</span>Actualizaciones</h3>
+        <p>BEE revisa las releases del repositorio oficial, descarga el paquete de tu sistema, verifica su sha256, y se reemplaza solo. Tus robots, autos y ajustes se conservan siempre — viven fuera de la carpeta del programa.</p>
+      </section>
+    </section>
+
+    <!-- ========== PARTE 2 ========== -->
+    <section id="parte2">
+      <div class="part-divider">
+        <span class="part-num">02</span>
+        <div class="part-titles"><p class="eyebrow">Parte 2</p><h2>BIOBUZZ</h2></div>
+      </div>
+
+      <p>BIOBUZZ es el juego de la temporada 2026-27: un campo con tema de colmena y polinización, y la lógica de puntuación gira alrededor de mover dos tipos de pieza — <strong>POLLEN</strong> (bolitas amarillas, la pieza básica) y <strong>NECTAR</strong> (una pieza más grande, con el doble de peso que un POLLEN y que vale más puntos) — desde donde aparecen hasta donde puntúan.</p>
+
+      <h3 style="margin-top:12px">Los elementos del campo</h3>
+      <ul>
+        <li><strong>FLOWER</strong> — dispensa POLLEN por abajo de forma continua. Puedes poner piezas encima; la alianza dueña de un FLOWER en un momento dado es la que tiene el NECTAR más arriba en esa pila. Si la pieza del fondo es NECTAR, vale un bonus extra.</li>
+        <li><strong>HIVE</strong> — la estructura central, con una <strong>CELL</strong> orientada hacia arriba donde se acumulan piezas. Al superar cierto peso acumulado (aproximadamente 8 POLLEN, recordando que un NECTAR pesa como dos) la HIVE "tipea": vuelca, reparte un bonus fijo más puntos por cada pieza que tenía dentro, y la otra CELL queda arriba para la siguiente ronda.</li>
+        <li><strong>GARDEN</strong> — zona donde cualquier pieza suelta que quede ahí al terminar el partido vale un punto cada una.</li>
+        <li><strong>LOADING ZONE</strong> — aquí el human player agrega NECTAR al juego, y aquí mismo aparca el robot al final del partido.</li>
+      </ul>
+
+      <h3>Cómo se estructura un partido</h3>
+      <p>Un partido completo dura <strong>2:30</strong>: cuenta atrás de 3 segundos, <strong>30 segundos de autónomo</strong>, una transición de 8 segundos donde nadie toca el robot, y <strong>2 minutos de control manual</strong>. Cada alianza (<span class="al-red">roja</span> y <span class="al-blue">azul</span>) tiene dos robots, cada uno con su propio driver y, para su alianza, un human player compartido en la LOADING ZONE.</p>
+
+      <h3>Restricciones de tamaño</h3>
+      <p>El robot debe salir de una caja inicial de <strong>18×18×18 pulgadas</strong>; desplegado, puede expandirse hasta <strong>18×24×29 pulgadas</strong> (regla <span class="mono">R102</span>). Cualquier mecanismo que despliegues por código tiene que respetar ese segundo límite incluso en su posición más extendida.</p>
+    </section>
+
+    <!-- ========== PARTE 3 ========== -->
+    <section id="parte3">
+      <div class="part-divider">
+        <span class="part-num">03</span>
+        <div class="part-titles"><p class="eyebrow">Parte 3</p><h2>Reglas cruciales</h2></div>
+      </div>
+      <p class="part-intro">No es el reglamento completo — es lo que de verdad cambia una decisión de diseño o una línea de código. El manual oficial de BIOBUZZ manda sobre esta guía si alguna vez hay una diferencia.</p>
+
+      <h3 id="puntuacion">Puntuación</h3>
+      <table class="wide">
+        <tr><th>Acción</th><th class="num">Puntos</th></tr>
+        <tr><td>Salir de la pared de inicio durante autónomo (LEAVE)</td><td class="num">+3</td></tr>
+        <tr><td>Aparcar en la LOADING ZONE (autónomo o TeleOp, cada vez)</td><td class="num">+5</td></tr>
+        <tr><td>La HIVE tipea (bonus fijo)</td><td class="num">+20</td></tr>
+        <tr><td>Cada pieza dentro de la CELL al momento del vuelco</td><td class="num">+2</td></tr>
+        <tr><td>Cada pieza en un FLOWER propio</td><td class="num">+2</td></tr>
+        <tr><td>Bonus si la pieza de abajo del FLOWER es NECTAR</td><td class="num">+5</td></tr>
+        <tr><td>Cada pieza suelta en el GARDEN al terminar</td><td class="num">+1</td></tr>
+      </table>
+
+      <h3 id="faltas">Faltas</h3>
+      <p>Una falta <strong>menor</strong> da 5 puntos a la alianza contraria; una falta <strong>mayor</strong> da 20. Dos tarjetas amarillas en la misma alianza se convierten en una tarjeta roja — ese robot queda descalificado con cero puntos en el partido.</p>
+      <table class="wide">
+        <tr><th>Código</th><th>Qué castiga</th><th>Severidad</th></tr>
+        <tr><td class="mono">G402</td><td>Cruzar e interferir en el lado rival durante el autónomo</td><td>Mayor</td></tr>
+        <tr><td class="mono">G408</td><td>Tomar o controlar NECTAR de la alianza contraria</td><td>Aviso → amarilla</td></tr>
+        <tr><td class="mono">G410</td><td>Poner NECTAR en un FLOWER antes del último minuto del partido</td><td>Mayor (por pieza)</td></tr>
+        <tr><td class="mono">G417</td><td>Embestir la HIVE con fuerza</td><td>Aviso → mayor + amarilla</td></tr>
+        <tr><td class="mono">G421</td><td>Bloquear a un robot rival más de 3 segundos</td><td>Mayor</td></tr>
+      </table>
+      <p>Límite de almacenamiento: 4 piezas por robot (<span class="mono">G407</span>). Posición de inicio: debe tocar la pared, estar en tu lado del campo y no sobre un FLOWER ni en la LOADING ZONE (<span class="mono">G304</span>).</p>
+
+      <div class="callout crucial"><span class="lbl">Lo que de verdad te afecta al programar</span>
+        <p><strong>G402 es la trampa más cara en autónomo.</strong> Un auto mal calibrado que se pasa de línea media cuesta 20 puntos automáticos — pon siempre un margen de seguridad en tu ruta, no justo en el límite del campo.</p>
+        <p><strong>G410 depende del reloj, no de la posición.</strong> Si tu código de asistencia en TeleOp mete NECTAR a un FLOWER, necesita saber en qué momento del partido está — revisa el tiempo restante antes de ejecutar esa acción.</p>
+        <p><strong>G407 es un límite de diseño, no solo de hardware.</strong> Aunque el intake físico pudiera aguantar más, la lógica de conteo de piezas en tu código nunca debería asumir más de 4 a bordo.</p>
+      </div>
+
+      <h3 id="fases">Fases y tiempos, de un vistazo</h3>
+      <table>
+        <tr><th>Fase</th><th class="num">Duración</th></tr>
+        <tr><td>Cuenta atrás</td><td class="num">3 s</td></tr>
+        <tr><td>Autónomo</td><td class="num">30 s</td></tr>
+        <tr><td>Transición</td><td class="num">8 s</td></tr>
+        <tr><td>Control manual</td><td class="num">120 s</td></tr>
+        <tr><td><strong>Total</strong></td><td class="num"><strong>2:30</strong></td></tr>
+      </table>
+    </section>
+
+    <footer>CodeStorm · temporada BIOBUZZ 2026-27. Ante cualquier duda de reglamento, el manual oficial de FIRST Tech Challenge tiene siempre la última palabra sobre esta guía.</footer>
+  </main>
+</div>
+
+<script>
+(function(){
+  try{
+    var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+    var map = {};
+    links.forEach(function(a){ map[a.getAttribute('href').slice(1)] = a; });
+    var sections = Array.prototype.slice.call(document.querySelectorAll('main [id]'));
+    if(!('IntersectionObserver' in window)) return;
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        var link = map[e.target.id];
+        if(!link) return;
+        if(e.isIntersecting) link.classList.add('active');
+        else link.classList.remove('active');
+      });
+    }, {rootMargin:'-10% 0px -70% 0px'});
+    sections.forEach(function(s){ obs.observe(s); });
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
